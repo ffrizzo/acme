@@ -9,6 +9,7 @@ import (
 
 // Config has the app configurations
 type Config struct {
+	Port                 string
 	SimulateExternalCall time.Duration // seconds
 	CertExpiration       time.Duration // days
 }
@@ -16,8 +17,13 @@ type Config struct {
 // New creates a config
 func New() Config {
 	cfg := Config{
+		Port:                 ":7070",
 		SimulateExternalCall: 3 * time.Second,     //default 3sec
 		CertExpiration:       10 * 24 * time.Hour, //default 10days
+	}
+
+	if val := os.Getenv("PORT"); len(val) > 0 {
+		cfg.Port = val
 	}
 
 	if val := os.Getenv("CERT_EXPIRATION"); len(val) > 0 {

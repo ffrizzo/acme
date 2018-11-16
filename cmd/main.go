@@ -32,5 +32,6 @@ func main() {
 		}
 	})
 
-	log.Fatal(http.ListenAndServe(":7070", router))
+	log.Printf("Server running on port %s", cfg.Port)
+	log.Fatal(http.ListenAndServe(cfg.Port, router))
 }
